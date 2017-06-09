@@ -1,0 +1,55 @@
+<div class="container-fluid"> 
+
+            <carousel [interval]="myInterval" [noWrap]="noWrapSlides">
+                <slide *ngFor="let slidez of slides;let index=index" [active]="slidez.active">
+                    <img [src]="slidez.image">
+<!--                     <div class="carousel-caption">
+                        <h4>Slide {{index+1}}</h4>
+                        <p>{{slidez.text}}</p>
+                    </div> -->
+                    <div class="carousel-caption">
+                    <div class="form-group input-group">
+                <!-- Single button -->
+                <div class="btn-group" dropdown>
+                    <button id="single-button" type="button" class="btn btn-primary" dropdownToggle [disabled]="disabled">
+                         {{selectedCityDD}} <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
+                        <li *ngFor="let choice of resultCities">
+                            <a class="dropdown-item" (click)="processDDSelection(choice)">{{choice.soCityName}}</a>
+                        </li>
+                    </ul>
+                </div>
+                    <input [(ngModel)]="selectedLocationName"
+                   [typeahead]="resultLocations"
+                   (typeaheadOnSelect)="typeaheadOnSelect($event)"
+                   [typeaheadOptionField]="'soLocationName'" type="text" class="form-control"><br>
+                    <span class="input-group-btn"><button class="btn btn-secondary" type="button"><i class="fa fa-search"></i></button></span>
+                </div>
+                </div>
+                </slide>
+                <i class="fa fa-chevron-left left carousel-control"></i>
+                <i class="fa fa-chevron-right right carousel-control"></i>
+            </carousel>
+
+    <div class="page-header">
+        <h1>Hall Listings</h1> 
+        <hr> 
+    </div>
+    <div class="row">
+        <!-- /.col-sm-4 -->
+        <div class="col-sm-4"  *ngFor="let detail of resultDetails" (click)="redirectToSelectionPage(detail)">
+            <div class="card card-success card-inverse">
+            <img class="card-img-top img-fluid" 
+            [src]="'data:image/jpg;base64,'+detail.soDetailImage" />
+                <div class="card-header card-success">
+                    {{detail.soDetailPropertyName}}
+                </div>
+                <div class="card-block bg-white">
+                    {{detail.soDetailPropertyAddr}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
